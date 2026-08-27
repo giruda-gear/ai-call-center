@@ -1,8 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import * as schema from '../db/schema';
-import { DRIZZLE } from 'src/db/drizzle.module';
-import type { DrizzleDB } from 'src/db/drizzle.module';
+
+import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
@@ -44,6 +44,7 @@ export class CustomersService {
 
     return customer;
   }
+
   async remove(id: number) {
     const [customer] = await this.db
       .delete(schema.customers)
