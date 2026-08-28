@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import './App.css'
+import CustomerPage from './pages/CustomerPage'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-      <div>Hello!</div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/customers" element={<CustomerPage />} />
+        <Route path="*" element={<Navigate to="/customers" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
