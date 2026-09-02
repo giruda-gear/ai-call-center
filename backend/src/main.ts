@@ -2,9 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
 
   app.enableCors({
     origin: 'http://localhost:5173',
@@ -17,6 +18,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.useLogger(app.get(Logger));
 
   const config = new DocumentBuilder()
     .setTitle('AI Call Center API')

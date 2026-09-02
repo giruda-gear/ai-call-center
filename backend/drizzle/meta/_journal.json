@@ -8,6 +8,13 @@
       "when": 1787669883789,
       "tag": "0000_sudden_morg",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788186822175,
+      "tag": "0001_ancient_thaddeus_ross",
+      "breakpoints": true
     }
   ]
 }

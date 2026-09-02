@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -23,8 +24,8 @@ export class CustomersController {
   }
 
   @Get()
-  async findAll() {
-    return this.customerService.findAll();
+  async findAll(@Query('q') query?: string) {
+    return this.customerService.findAll(query);
   }
 
   @Get(':id')

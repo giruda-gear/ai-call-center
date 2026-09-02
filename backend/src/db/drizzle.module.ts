@@ -25,7 +25,10 @@ export type DrizzleDB = PostgresJsDatabase<typeof schema>;
       provide: DRIZZLE,
       inject: [PG_CLIENT],
       useFactory: (client: postgres.Sql) =>
-        drizzle(client, { schema }) as DrizzleDB,
+        drizzle(client, {
+          schema,
+          logger: process.env.NODE_ENV !== 'production',
+        }) as DrizzleDB,
     },
   ],
   exports: [DRIZZLE],

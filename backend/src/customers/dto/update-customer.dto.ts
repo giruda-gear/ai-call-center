@@ -8,4 +8,8 @@ export class UpdateCustomerDto {
   @IsOptional()
   @IsEmail()
   email?: string;
+
+  @IsOptional()
+  @IsEmail()
+  phone?: string;
 }
