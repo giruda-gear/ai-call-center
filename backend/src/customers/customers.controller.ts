@@ -28,9 +28,9 @@ export class CustomersController {
     return this.customerService.findAll(query);
   }
 
-  @Get(':id')
-  async findById(@Param('id', ParseIntPipe) id: number) {
-    return this.customerService.findById(id);
+  @Get(':customerNumber')
+  async findByCustomerNumber(@Param('customerNumber') customerNumber: string) {
+    return this.customerService.findByCustomerNumber(customerNumber);
   }
 
   @Patch(':id')

@@ -48,6 +48,16 @@ export class CustomersService {
     return customer;
   }
 
+  async findByCustomerNumber(customerNumber: string) {
+    const [customer] = await this.db
+      .select()
+      .from(schema.customers)
+      .where(eq(schema.customers.customerNumber, customerNumber));
+
+    if (!customer) throw new NotFoundException('Customer not found');
+    return customer;
+  }
+
   async update(id: number, dto: UpdateCustomerDto) {
     const [customer] = await this.db
       .update(schema.customers)

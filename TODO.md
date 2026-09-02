@@ -3,8 +3,8 @@
 ## Core Platform
 
 - [x] ① Customer CRUD
-- [ ] ② React + TanStack Query
-- [ ] ③ Customer Detail
+- [x] ② React + TanStack Query
+- [x] ③ Customer Detail
 - [ ] ④ Contract CRUD
 - [ ] ⑤ Call History CRUD
 - [ ] ⑥ Policy Document + Search

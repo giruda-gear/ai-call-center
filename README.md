@@ -5,3 +5,6 @@ pnpm start:dev
 pnpm db studio
 pnpm db generate
 pnpm db migrate
+
+# react
+pnpm dev

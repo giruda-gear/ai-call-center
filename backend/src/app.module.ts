@@ -5,6 +5,8 @@ import { CustomersModule } from './customers/customers.module';
 import { ConfigModule } from '@nestjs/config';
 import { DrizzleModule } from './db/drizzle.module';
 import { LoggerModule } from 'nestjs-pino';
+import { ContractsModule } from './contracts/contracts.module';
+import { ContractsModule } from './contracts/contracts.module';
 
 @Module({
   imports: [
@@ -21,7 +23,6 @@ import { LoggerModule } from 'nestjs-pino';
                 options: {
                   singleLine: true,
                   colorize: true,
-                  translateTime: 'SYS:HH:MM:ss',
                   ignore: 'pid,hostname,req,res,responseTime',
                 },
               },
@@ -43,6 +44,7 @@ import { LoggerModule } from 'nestjs-pino';
     }),
     DrizzleModule,
     CustomersModule,
+    ContractsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
