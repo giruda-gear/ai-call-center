@@ -1,4 +1,11 @@
-import { pgTable, serial, timestamp, varchar } from 'drizzle-orm/pg-core';
+import {
+  date,
+  integer,
+  pgTable,
+  serial,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
 
 export const customers = pgTable('customers', {
   id: serial('id').primaryKey(),
@@ -9,4 +16,15 @@ export const customers = pgTable('customers', {
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
+});
+
+export const contracts = pgTable('contracts', {
+  id: serial('id').primaryKey(),
+  customerId: integer('customer_id')
+    .notNull()
+    .references(() => customers.id),
+  contractNumber: varchar('contract_number', { length: 50 }).notNull().unique(),
+  status: varchar('status', { length: 20 }).notNull(),
+  endData: date('end_date'),
+  createAt: timestamp('created_ at').defaultNow().notNull(),
 });

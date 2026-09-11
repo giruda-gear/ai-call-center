@@ -15,6 +15,13 @@
       "when": 1788186822175,
       "tag": "0001_ancient_thaddeus_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789130858884,
+      "tag": "0002_needy_meggan",
+      "breakpoints": true
     }
   ]
 }

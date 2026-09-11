@@ -6,7 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 import { DrizzleModule } from './db/drizzle.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ContractsModule } from './contracts/contracts.module';
-import { ContractsModule } from './contracts/contracts.module';
 
 @Module({
   imports: [
