@@ -19,8 +19,7 @@ export class CustomersController {
 
   @Post()
   async create(@Body() dto: CreateCustomerDto) {
-    const customer = this.customerService.create(dto);
-    return customer;
+    return this.customerService.create(dto);
   }
 
   @Get()

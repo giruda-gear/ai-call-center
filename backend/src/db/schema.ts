@@ -16,6 +16,9 @@ export const customers = pgTable('customers', {
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
 });
 
 export const contracts = pgTable('contracts', {
@@ -23,8 +26,15 @@ export const contracts = pgTable('contracts', {
   customerId: integer('customer_id')
     .notNull()
     .references(() => customers.id),
-  contractNumber: varchar('contract_number', { length: 50 }).notNull().unique(),
+  contractNumber: varchar('contract_number', { length: 20 }).notNull().unique(),
+  type: varchar('type', { length: 20 }).notNull(),
   status: varchar('status', { length: 20 }).notNull(),
-  endData: date('end_date'),
-  createAt: timestamp('created_ at').defaultNow().notNull(),
+  startDate: date('start_date'),
+  endDate: date('end_date'),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
 });

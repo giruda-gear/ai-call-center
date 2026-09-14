@@ -5,7 +5,7 @@ import * as schema from '../db/schema';
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { generateCustomerNumber } from './utils/generate-customer-number';
+import { generateCustomerNumber } from './utils/customer-number.util';
 
 @Injectable()
 export class CustomersService {
