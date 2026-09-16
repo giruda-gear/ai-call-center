@@ -23,6 +23,8 @@ import { ContractsModule } from './contracts/contracts.module';
                   singleLine: true,
                   colorize: true,
                   ignore: 'pid,hostname,req,res,responseTime',
+                  customColors: 'message:white',
+                  useOnlyCustomProps: false,
                 },
               },
 

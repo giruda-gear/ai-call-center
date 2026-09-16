@@ -32,9 +32,10 @@ export const contracts = pgTable('contracts', {
   startDate: date('start_date'),
   endDate: date('end_date'),
   createdAt: timestamp('created_at', { withTimezone: true })
-    .defaultNow()
-    .notNull(),
+    .notNull()
+    .defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
     .defaultNow()
-    .notNull(),
+    .$onUpdate(() => new Date()),
 });
