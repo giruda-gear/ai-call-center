@@ -1,8 +1,8 @@
-import { IsDateString, IsEnum, IsNumber } from 'class-validator';
+import { IsDateString, IsEnum, IsInt } from 'class-validator';
 import { ContractStatus, ContractType } from '../types/contract.types';
 
 export class CreateContractDto {
-  @IsNumber()
+  @IsInt()
   customerId!: number;
 
   @IsEnum(ContractType)

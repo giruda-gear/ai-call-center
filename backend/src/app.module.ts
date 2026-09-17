@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DrizzleModule } from './db/drizzle.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ContractsModule } from './contracts/contracts.module';
+import { CallHistoryModule } from './call-history/call-history.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ContractsModule } from './contracts/contracts.module';
     DrizzleModule,
     CustomersModule,
     ContractsModule,
+    CallHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
