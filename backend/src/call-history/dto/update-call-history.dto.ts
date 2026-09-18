@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateCallHistoryDto } from './create-call-history.dto';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class UpdateCallHistoryDto extends PartialType(CreateCallHistoryDto) {}
+export class UpdateCallHistoryDto {
+  @IsString()
+  @IsNotEmpty()
+  callNotes!: string;
+}

@@ -1,7 +1,19 @@
-import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  HttpCode,
+  HttpStatus,
+  Delete,
+  Patch,
+} from '@nestjs/common';
 import { CallHistoryService } from './call-history.service';
 import { CreateCallHistoryDto } from './dto/create-call-history.dto';
 import { FindCallHistoryDto } from './dto/find-call-history.dto';
+import { UpdateCallHistoryDto } from './dto/update-call-history.dto';
 
 @Controller('call-history')
 export class CallHistoryController {
@@ -17,8 +29,14 @@ export class CallHistoryController {
     return this.callHistoryService.findAll(query);
   }
 
-  @Get(':id')
+  @Patch(':id')
+  update(@Param('id') id: number, @Body() dto: UpdateCallHistoryDto) {
+    return this.callHistoryService.update(id, dto);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   findOne(@Param('id') id: number) {
-    return this.callHistoryService.findOne(id);
+    return this.callHistoryService.remove(id);
   }
 }

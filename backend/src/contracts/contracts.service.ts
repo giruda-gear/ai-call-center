@@ -51,7 +51,5 @@ export class ContractsService {
     if (!deleted) {
       throw new NotFoundException(`Contract ${contractNumber} is not found.`);
     }
-
-    return deleted;
   }
 }

@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
 import * as schema from '../db/schema';
 import { and, desc, eq, gte, lt, type SQL } from 'drizzle-orm';
 import { CreateCallHistoryDto } from './dto/create-call-history.dto';
 import { FindCallHistoryDto } from './dto/find-call-history.dto';
-import { Temporal } from '@js-temporal/polyfill';
+import { UpdateCallHistoryDto } from './dto/update-call-history.dto';
 
 @Injectable()
 export class CallHistoryService {
@@ -33,9 +33,9 @@ export class CallHistoryService {
 
     if (from) {
       const day = new Date(
-        Temporal.PlainDate.from(from)
-          .toZonedDateTime('Europe/Berlin')
-          .toInstant().epochMilliseconds,
+        Temporal.PlainDate.from(from).toZonedDateTime({
+          timeZone: 'Europe/Berlin',
+        }).epochMilliseconds,
       );
       conditions.push(gte(schema.callHistories.startedAt, day));
     }
@@ -78,11 +78,20 @@ export class CallHistoryService {
       .where(eq(schema.callHistories.id, id));
   }
 
-  // async update(id: number, updateCallHistoryDto: UpdateCallHistoryDto) {
-  //   return `This action updates a #${id} callHistory`;
-  // }
+  async update(id: number, dto: UpdateCallHistoryDto) {
+    return this.db
+      .update(schema.callHistories)
+      .set({ ...dto })
+      .where(eq(schema.callHistories.id, id))
+      .returning();
+  }
 
-  // async remove(id: number) {
-  //   return `This action removes a #${id} callHistory`;
-  // }
+  async remove(id: number) {
+    const [deleted] = await this.db
+      .delete(schema.callHistories)
+      .where(eq(schema.callHistories.id, id))
+      .returning();
+
+    if (!deleted) throw new NotFoundException(`Call history ${id} not found.`);
+  }
 }
