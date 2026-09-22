@@ -15,7 +15,7 @@ import { CreateCallHistoryDto } from './dto/create-call-history.dto';
 import { FindCallHistoryDto } from './dto/find-call-history.dto';
 import { UpdateCallHistoryDto } from './dto/update-call-history.dto';
 
-@Controller('call-history')
+@Controller('call-histories')
 export class CallHistoryController {
   constructor(private readonly callHistoryService: CallHistoryService) {}
 

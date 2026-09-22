@@ -30,10 +30,10 @@ export class CustomersService {
       .from(schema.customers)
       .where(
         or(
-          ilike(schema.customers.customerNumber, `%${query}`),
-          ilike(schema.customers.name, `%${query}`),
-          ilike(schema.customers.email, `%${query}`),
-          ilike(schema.customers.phone, `%${query}`),
+          ilike(schema.customers.customerNumber, `%${query}%`),
+          ilike(schema.customers.name, `%${query}%`),
+          ilike(schema.customers.email, `%${query}%`),
+          ilike(schema.customers.phone, `%${query}%`),
         ),
       );
   }
