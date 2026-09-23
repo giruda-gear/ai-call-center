@@ -50,6 +50,13 @@
       "when": 1789657641875,
       "tag": "0006_fancy_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790173177600,
+      "tag": "0007_cynical_avengers",
+      "breakpoints": true
     }
   ]
 }
