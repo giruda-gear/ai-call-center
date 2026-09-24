@@ -1,13 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
-import { AnalyzeMessageResult } from './types/ai.types';
-
-type OllamaChatResponse = {
-  message: {
-    role: string;
-    content: string;
-  };
-};
+import {
+  AnalyzeMessageResult,
+  OllamaChatResponse,
+  OllamaEmbedResponse,
+} from './types/ai.types';
 
 @Injectable()
 export class AiService {
@@ -97,5 +94,25 @@ Set needsPolicySearch to true when answering the question requires information f
     const data = (await response.json()) as OllamaChatResponse;
     console.log(data);
     return JSON.parse(data.message.content) as AnalyzeMessageResult;
+  }
+
+  async embed(text: string): Promise<number[]> {
+    const response = await fetch('http://localhost:11434/api/embed', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'nomic-embed-text',
+        input: text,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate embedding');
+    }
+
+    const data = (await response.json()) as OllamaEmbedResponse;
+    return data.embeddings[0];
   }
 }

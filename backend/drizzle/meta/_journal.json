@@ -57,6 +57,20 @@
       "when": 1790173177600,
       "tag": "0007_cynical_avengers",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790259975723,
+      "tag": "0008_enable-pgvector",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790260897174,
+      "tag": "0009_common_ser_duncan",
+      "breakpoints": true
     }
   ]
 }

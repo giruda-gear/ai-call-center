@@ -8,3 +8,14 @@ export type AnalyzeMessageResult = {
   intent: CustomerIntent;
   needPolicySearch: boolean;
 };
+
+export type OllamaChatResponse = {
+  message: {
+    role: string;
+    content: string;
+  };
+};
+
+export type OllamaEmbedResponse = {
+  embeddings: number[][];
+};

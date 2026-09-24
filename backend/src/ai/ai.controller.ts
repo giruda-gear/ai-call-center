@@ -15,4 +15,11 @@ export class AiController {
   analyze(@Body() dto: ChatDto) {
     return this.aiService.analyze(dto.message);
   }
+
+  @Post('embed')
+  async embed(@Body() dto: ChatDto) {
+    const embedding = await this.aiService.embed(dto.message);
+
+    return { dimensions: embedding.length, embedding };
+  }
 }
