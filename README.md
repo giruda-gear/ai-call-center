@@ -2,6 +2,7 @@
 An AI-powered call center platform built with NestJS, React, PostgreSQL, and local LLMs.
 
 ## AI Workflow
+```text
 Customer Question
         ↓
 Intent Analysis
@@ -17,8 +18,10 @@ LLM
 Suggested Answer
         ↓
 Agent Review
-
+```
 The goal is not to let the LLM answer from general knowledge alone. The system retrieves relevant business data and policy documents first, then uses the LLM to generate a grounded response for the call center agent.
+
+---
 
 **Nestjs**
 `pnpm start:dev`
