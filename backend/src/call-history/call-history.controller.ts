@@ -1,19 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
-  Query,
+  Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  Delete,
+  Param,
   Patch,
+  Post,
+  Query,
 } from '@nestjs/common';
-import { CallHistoryService } from './call-history.service';
-import { CreateCallHistoryDto } from './dto/create-call-history.dto';
-import { FindCallHistoryDto } from './dto/find-call-history.dto';
-import { UpdateCallHistoryDto } from './dto/update-call-history.dto';
+
+import { CallHistoryService } from './call-history.service.js';
+import { CreateCallHistoryDto } from './dto/create-call-history.dto.js';
+import { FindCallHistoryDto } from './dto/find-call-history.dto.js';
+import { UpdateCallHistoryDto } from './dto/update-call-history.dto.js';
 
 @Controller('call-histories')
 export class CallHistoryController {

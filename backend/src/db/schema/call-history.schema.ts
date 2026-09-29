@@ -6,8 +6,9 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { customers } from './customer.schema';
 import { index } from 'drizzle-orm/pg-core';
+
+import { customers } from './customer.schema.js';
 
 export const callHistories = pgTable(
   'call_histories',

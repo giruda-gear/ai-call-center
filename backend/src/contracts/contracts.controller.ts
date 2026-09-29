@@ -9,9 +9,10 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ContractsService } from './contracts.service';
-import { CreateContractDto } from './dto/create_contract.dto';
-import { UpdateContractDto } from './dto/update_contract.dto';
+
+import { ContractsService } from './contracts.service.js';
+import { CreateContractDto } from './dto/create_contract.dto.js';
+import { UpdateContractDto } from './dto/update_contract.dto.js';
 
 @Controller('contracts')
 export class ContractsController {

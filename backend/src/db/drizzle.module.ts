@@ -1,9 +1,10 @@
 import { Global, Inject, Module, OnApplicationShutdown } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { drizzle } from 'drizzle-orm/postgres-js';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import * as schema from './schema';
+
+import * as schema from './schema.js';
 
 export const DRIZZLE = Symbol('DRIZZLE_DB');
 export const PG_CLIENT = Symbol('PG_CLIENT');

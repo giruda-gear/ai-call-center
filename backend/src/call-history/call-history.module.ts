@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CallHistoryService } from './call-history.service';
-import { CallHistoryController } from './call-history.controller';
+
+import { CallHistoryController } from './call-history.controller.js';
+import { CallHistoryService } from './call-history.service.js';
 
 @Module({
   controllers: [CallHistoryController],

@@ -6,7 +6,8 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { customers } from './customer.schema';
+
+import { customers } from './customer.schema.js';
 
 export const contracts = pgTable('contracts', {
   id: serial('id').primaryKey(),

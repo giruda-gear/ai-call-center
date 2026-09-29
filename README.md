@@ -24,12 +24,17 @@ The goal is not to let the LLM answer from general knowledge alone. The system r
 ---
 
 **Nestjs**
-`pnpm start:dev`
+
+`pnpm dev`
 
 **Drizzle**
+
 `pnpm db generate`
+
 `pnpm db migrate`
+
 `pnpm db studio`
 
 **React**
+
 `pnpm dev`

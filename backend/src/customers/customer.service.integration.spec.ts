@@ -1,7 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CustomersService } from './customers.service';
-import { DrizzleModule } from '../db/drizzle.module';
 import { ConfigModule } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { DrizzleModule } from '../db/drizzle.module.js';
+import { CustomersService } from './customers.service.js';
 
 describe('Customer Service Integration', () => {
   let service: CustomersService;

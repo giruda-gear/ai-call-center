@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CustomersModule } from './customers/customers.module';
 import { ConfigModule } from '@nestjs/config';
-import { DrizzleModule } from './db/drizzle.module';
 import { LoggerModule } from 'nestjs-pino';
-import { ContractsModule } from './contracts/contracts.module';
-import { CallHistoryModule } from './call-history/call-history.module';
-import { AiModule } from './ai/ai.module';
+
+import { AiModule } from './ai/ai.module.js';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { CallHistoryModule } from './call-history/call-history.module.js';
+import { ContractsModule } from './contracts/contracts.module.js';
+import { CustomersModule } from './customers/customers.module.js';
+import { DrizzleModule } from './db/drizzle.module.js';
+import { PolicyModule } from './policy/policy.module.js';
 
 @Module({
   imports: [
@@ -50,6 +52,7 @@ import { AiModule } from './ai/ai.module';
     ContractsModule,
     CallHistoryModule,
     AiModule,
+    PolicyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

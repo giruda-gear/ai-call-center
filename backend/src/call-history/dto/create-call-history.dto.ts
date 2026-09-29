@@ -5,7 +5,8 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { CallDirection } from '../types/call-history.types';
+
+import { CallDirection } from '../types/call-history.types.js';
 
 export class CreateCallHistoryDto {
   @IsOptional()

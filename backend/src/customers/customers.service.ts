@@ -1,11 +1,11 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { eq, ilike, or } from 'drizzle-orm';
-import * as schema from '../db/schema';
 
-import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { generateCustomerNumber } from './utils/customer-number.util';
+import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
+import * as schema from '../db/schema.js';
+import { CreateCustomerDto } from './dto/create-customer.dto.js';
+import { UpdateCustomerDto } from './dto/update-customer.dto.js';
+import { generateCustomerNumber } from './utils/customer-number.util.js';
 
 @Injectable()
 export class CustomersService {

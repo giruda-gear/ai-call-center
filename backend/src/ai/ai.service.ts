@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
+
+import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
 import {
   AnalyzeMessageResult,
   OllamaChatResponse,
   OllamaEmbedResponse,
-} from './types/ai.types';
+} from './types/ai.types.js';
 
 @Injectable()
 export class AiService {
@@ -92,7 +93,7 @@ Set needsPolicySearch to true when answering the question requires information f
     }
 
     const data = (await response.json()) as OllamaChatResponse;
-    console.log(data);
+
     return JSON.parse(data.message.content) as AnalyzeMessageResult;
   }
 

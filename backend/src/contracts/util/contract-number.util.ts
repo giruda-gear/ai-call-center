@@ -1,5 +1,6 @@
 import { randomBytes } from 'crypto';
-import { ContractType } from '../types/contract.types';
+
+import { ContractType } from '../types/contract.types.js';
 
 const CONTRACT_PREFIX: Record<ContractType, string> = {
   HEALTH: 'HE',

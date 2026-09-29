@@ -1,6 +1,7 @@
 import { integer, pgTable, serial, text, vector } from 'drizzle-orm/pg-core';
-import { policies } from './policy.schema';
 import { timestamp } from 'drizzle-orm/pg-core';
+
+import { policies } from './policy.schema.js';
 
 export const policyChunks = pgTable('policy_chunks', {
   id: serial('id').primaryKey(),

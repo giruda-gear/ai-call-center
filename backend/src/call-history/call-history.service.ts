@@ -1,10 +1,11 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
-import * as schema from '../db/schema';
 import { and, desc, eq, gte, lt, type SQL } from 'drizzle-orm';
-import { CreateCallHistoryDto } from './dto/create-call-history.dto';
-import { FindCallHistoryDto } from './dto/find-call-history.dto';
-import { UpdateCallHistoryDto } from './dto/update-call-history.dto';
+
+import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
+import * as schema from '../db/schema.js';
+import { CreateCallHistoryDto } from './dto/create-call-history.dto.js';
+import { FindCallHistoryDto } from './dto/find-call-history.dto.js';
+import { UpdateCallHistoryDto } from './dto/update-call-history.dto.js';
 
 @Injectable()
 export class CallHistoryService {

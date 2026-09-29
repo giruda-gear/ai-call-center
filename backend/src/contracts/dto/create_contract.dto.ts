@@ -1,5 +1,6 @@
 import { IsDateString, IsEnum, IsInt } from 'class-validator';
-import { ContractStatus, ContractType } from '../types/contract.types';
+
+import { ContractStatus, ContractType } from '../types/contract.types.js';
 
 export class CreateContractDto {
   @IsInt()

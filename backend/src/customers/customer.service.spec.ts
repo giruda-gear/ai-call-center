@@ -1,6 +1,8 @@
-import { DrizzleDB } from '../db/drizzle.module';
-import { CustomersService } from './customers.service';
 import { NotFoundException } from '@nestjs/common';
+import { type Mock, vi } from 'vitest';
+
+import { DrizzleDB } from '../db/drizzle.module.js';
+import { CustomersService } from './customers.service.js';
 
 describe('CustomerService', () => {
   let service: CustomersService;
@@ -8,7 +10,7 @@ describe('CustomerService', () => {
 
   beforeEach(() => {
     db = {
-      select: jest.fn(),
+      select: vi.fn(),
     } as unknown as DrizzleDB; // update,remove..: unknown
 
     service = new CustomersService(db);
@@ -17,10 +19,10 @@ describe('CustomerService', () => {
   describe('findById', () => {
     it('should throw NotFoundException when the customer does not exist', async () => {
       // arrange
-      const where = jest.fn().mockResolvedValue([]);
-      const from = jest.fn().mockReturnValue({ where });
+      const where = vi.fn().mockResolvedValue([]);
+      const from = vi.fn().mockReturnValue({ where });
 
-      (db.select as jest.Mock).mockReturnValue({
+      (db.select as Mock).mockReturnValue({
         from,
       });
       // act + assert

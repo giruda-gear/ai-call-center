@@ -1,10 +1,11 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
-import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module';
-import * as schema from '../db/schema';
-import { CreateContractDto } from './dto/create_contract.dto';
-import { generateContractNumber } from './util/contract-number.util';
-import { UpdateContractDto } from './dto/update_contract.dto';
+
+import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
+import * as schema from '../db/schema.js';
+import { CreateContractDto } from './dto/create_contract.dto.js';
+import { UpdateContractDto } from './dto/update_contract.dto.js';
+import { generateContractNumber } from './util/contract-number.util.js';
 
 @Injectable()
 export class ContractsService {
