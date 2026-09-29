@@ -2,10 +2,11 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
 import {
-  AnalyzeMessageResult,
-  OllamaChatResponse,
-  OllamaEmbedResponse,
-} from './types/ai.types.js';
+  AnalyzeResultSchema,
+  OllamaChatResponseSchema,
+  OllamaEmbedResponseSchema,
+} from './schemas/ai.schema.js';
+import { z } from 'zod';
 
 @Injectable()
 export class AiService {
@@ -29,9 +30,13 @@ export class AiService {
       throw new Error('Failed to communicate with Ollama');
     }
 
-    const data = (await response.json()) as OllamaChatResponse;
+    const json: unknown = await response.json();
 
-    return { message: data.message.content };
+    const data = OllamaChatResponseSchema.parse(json);
+
+    return {
+      message: data.message.content,
+    };
   }
 
   async analyze(message: string) {
@@ -67,24 +72,7 @@ Set needsPolicySearch to true when answering the question requires information f
         ],
         stream: false,
         think: false,
-        format: {
-          type: 'object',
-          properties: {
-            intent: {
-              type: 'string',
-              enum: [
-                'COVERAGE_INQUIRY',
-                'CONTRACT_INQUIRY',
-                'CALL_HISTORY_INQUIRY',
-                'GENERAL_INQUIRY',
-              ],
-            },
-            needsPolicySearch: {
-              type: 'boolean',
-            },
-          },
-        },
-        required: ['intent', 'needsPolicySearch'],
+        format: z.toJSONSchema(AnalyzeResultSchema), // tell Ollama what to what to generate
       }),
     });
 
@@ -92,9 +80,13 @@ Set needsPolicySearch to true when answering the question requires information f
       throw new Error('Failed to communicate with Ollama');
     }
 
-    const data = (await response.json()) as OllamaChatResponse;
+    const json: unknown = await response.json();
 
-    return JSON.parse(data.message.content) as AnalyzeMessageResult;
+    const data = OllamaChatResponseSchema.parse(json);
+
+    const parsed: unknown = JSON.parse(data.message.content);
+    // validate what ollama returned
+    return AnalyzeResultSchema.parse(parsed);
   }
 
   async embed(text: string): Promise<number[]> {
@@ -113,7 +105,10 @@ Set needsPolicySearch to true when answering the question requires information f
       throw new Error('Failed to generate embedding');
     }
 
-    const data = (await response.json()) as OllamaEmbedResponse;
+    const json: unknown = await response.json();
+
+    const data = OllamaEmbedResponseSchema.parse(json);
+
     return data.embeddings[0];
   }
 }
