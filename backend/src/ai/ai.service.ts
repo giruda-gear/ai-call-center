@@ -72,10 +72,10 @@ Set needsPolicySearch to true when answering the question requires information f
         ],
         stream: false,
         think: false,
-        format: z.toJSONSchema(AnalyzeResultSchema), // tell Ollama what to what to generate
+        format: z.toJSONSchema(AnalyzeResultSchema), // tell Ollama what to generate
       }),
     });
-
+    console.log(z.toJSONSchema(AnalyzeResultSchema))
     if (!response.ok) {
       throw new Error('Failed to communicate with Ollama');
     }

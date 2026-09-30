@@ -10,13 +10,13 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { CustomersService } from './customers.service.js';
+import { CustomerService } from './customer.service.js';
 import { CreateCustomerDto } from './dto/create-customer.dto.js';
 import { UpdateCustomerDto } from './dto/update-customer.dto.js';
 
 @Controller('customers')
-export class CustomersController {
-  constructor(private readonly customerService: CustomersService) {}
+export class CustomerController {
+  constructor(private readonly customerService: CustomerService) {}
 
   @Post()
   async create(@Body() dto: CreateCustomerDto) {

@@ -2,19 +2,19 @@ import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { DrizzleModule } from '../db/drizzle.module.js';
-import { CustomersService } from './customers.service.js';
+import { CustomerService } from './customer.service.js';
 
 describe('Customer Service Integration', () => {
-  let service: CustomersService;
+  let service: CustomerService;
   let module: TestingModule;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [ConfigModule.forRoot(), DrizzleModule],
-      providers: [CustomersService],
+      providers: [CustomerService],
     }).compile();
 
-    service = module.get(CustomersService);
+    service = module.get(CustomerService);
   });
 
   it('should create and retrieve a customer', async () => {

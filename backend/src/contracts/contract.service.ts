@@ -8,7 +8,7 @@ import { UpdateContractDto } from './dto/update_contract.dto.js';
 import { generateContractNumber } from './util/contract-number.util.js';
 
 @Injectable()
-export class ContractsService {
+export class ContractService {
   constructor(@Inject(DRIZZLE) private readonly db: DrizzleDB) {}
 
   async create(dto: CreateContractDto) {

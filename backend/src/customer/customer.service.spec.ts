@@ -2,10 +2,10 @@ import { NotFoundException } from '@nestjs/common';
 import { type Mock, vi } from 'vitest';
 
 import { DrizzleDB } from '../db/drizzle.module.js';
-import { CustomersService } from './customers.service.js';
+import { CustomerService } from './customer.service.js';
 
 describe('CustomerService', () => {
-  let service: CustomersService;
+  let service: CustomerService;
   let db: DrizzleDB;
 
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe('CustomerService', () => {
       select: vi.fn(),
     } as unknown as DrizzleDB; // update,remove..: unknown
 
-    service = new CustomersService(db);
+    service = new CustomerService(db);
   });
 
   describe('findById', () => {

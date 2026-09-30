@@ -6,8 +6,8 @@ import { AiModule } from './ai/ai.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { CallHistoryModule } from './call-history/call-history.module.js';
-import { ContractsModule } from './contracts/contracts.module.js';
-import { CustomersModule } from './customers/customers.module.js';
+import { ContractModule } from './contracts/contract.module.js';
+import { CustomerModule } from './customer/customer.module.js';
 import { DrizzleModule } from './db/drizzle.module.js';
 import { PolicyModule } from './policy/policy.module.js';
 
@@ -48,8 +48,8 @@ import { PolicyModule } from './policy/policy.module.js';
       },
     }),
     DrizzleModule,
-    CustomersModule,
-    ContractsModule,
+    CustomerModule,
+    ContractModule,
     CallHistoryModule,
     AiModule,
     PolicyModule,

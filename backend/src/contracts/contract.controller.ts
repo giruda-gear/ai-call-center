@@ -10,22 +10,22 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { ContractsService } from './contracts.service.js';
+import { ContractService } from './contract.service.js';
 import { CreateContractDto } from './dto/create_contract.dto.js';
 import { UpdateContractDto } from './dto/update_contract.dto.js';
 
 @Controller('contracts')
-export class ContractsController {
-  constructor(private readonly contractsService: ContractsService) {}
+export class ContractController {
+  constructor(private readonly ContractService: ContractService) {}
 
   @Post()
   async create(@Body() dto: CreateContractDto) {
-    return this.contractsService.create(dto);
+    return this.ContractService.create(dto);
   }
 
   @Get(':customerNumber')
   async findByCustomerNumber(@Param('customerNumber') customerNumber: string) {
-    return this.contractsService.findByCustomerNumber(customerNumber);
+    return this.ContractService.findByCustomerNumber(customerNumber);
   }
 
   @Patch(':contractNumber')
@@ -33,12 +33,12 @@ export class ContractsController {
     @Param('contractNumber') contractNumber: string,
     @Body() dto: UpdateContractDto,
   ) {
-    return this.contractsService.update(contractNumber, dto);
+    return this.ContractService.update(contractNumber, dto);
   }
 
   @Delete(':contractNumber')
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('contractNumber') contractNumber: string) {
-    return this.contractsService.remove(contractNumber);
+    return this.ContractService.remove(contractNumber);
   }
 }
