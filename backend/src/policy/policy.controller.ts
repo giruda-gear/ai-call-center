@@ -1,4 +1,11 @@
-import { Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 
 import { PolicyService } from './policy.service.js';
 
@@ -7,7 +14,12 @@ export class PolicyController {
   constructor(private readonly policyService: PolicyService) {}
 
   @Post('/:id/ingest')
-  async ingest(@Param('id', ParseIntPipe) id: number) {
+  ingest(@Param('id', ParseIntPipe) id: number) {
     return this.policyService.ingestPolicy(id);
+  }
+
+  @Get('search')
+  search(@Query('q') query: string) {
+    return this.policyService.searchPolicyChunks(query);
   }
 }

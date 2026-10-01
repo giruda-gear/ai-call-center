@@ -19,22 +19,22 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
-  async create(@Body() dto: CreateCustomerDto) {
+  create(@Body() dto: CreateCustomerDto) {
     return this.customerService.create(dto);
   }
 
   @Get()
-  async findAll(@Query('q') query?: string) {
+  findAll(@Query('q') query?: string) {
     return this.customerService.findAll(query);
   }
 
   @Get(':customerNumber')
-  async findByCustomerNumber(@Param('customerNumber') customerNumber: string) {
+  findByCustomerNumber(@Param('customerNumber') customerNumber: string) {
     return this.customerService.findByCustomerNumber(customerNumber);
   }
 
   @Patch(':id')
-  async update(
+  update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateCustomerDto,
   ) {
@@ -42,7 +42,7 @@ export class CustomerController {
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.customerService.remove(id);
   }
 }

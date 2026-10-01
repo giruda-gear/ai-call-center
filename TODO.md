@@ -5,15 +5,15 @@
 - [x] ① Customer CRUD
 - [x] ② React + TanStack Query
 - [x] ③ Customer Detail
-- [ ] ④ Contract CRUD
-- [ ] ⑤ Call History CRUD
+- [x] ④ Contract CRUD
+- [x] ⑤ Call History CRUD
 - [ ] ⑥ Policy Document + Search
 
 ## AI
 
-- [ ] ⑦ Ollama
-- [ ] ⑧ Structured Output
-- [ ] ⑨ RAG + pgvector
+- [x] ⑦ Ollama
+- [x] ⑧ Structured Output
+- [x] ⑨ RAG + pgvector
 - [ ] ⑩ Tool Calling
 - [ ] ⑪ Human Approval
 - [ ] ⑫ Evaluation

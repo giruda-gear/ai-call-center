@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { cosineDistance, desc, eq, sql } from 'drizzle-orm';
 
 import { AiService } from '../ai/ai.service.js';
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
@@ -12,16 +12,6 @@ export class PolicyService {
     private readonly db: DrizzleDB,
     private readonly aiService: AiService,
   ) {}
-
-  private chunkText(text: string, chunkSize = 500): string[] {
-    const chunks: string[] = [];
-
-    for (let i = 0; i < text.length; i += chunkSize) {
-      chunks.push(text.slice(i, i + chunkSize));
-    }
-
-    return chunks;
-  }
 
   async ingestPolicy(policyId: number) {
     const [policy] = await this.db
@@ -53,5 +43,33 @@ export class PolicyService {
       policyId,
       chunksCreated: chunks.length,
     };
+  }
+
+  async searchPolicyChunks(query: string) {
+    const queryEmbedding = await this.aiService.embed(query);
+
+    const similarity = sql<number>`
+    1 - (${cosineDistance(schema.policyChunks.embedding, queryEmbedding)})`;
+    // SQL filtering + vector search together
+    return this.db
+      .select({
+        id: schema.policyChunks.id,
+        policyId: schema.policyChunks.policyId,
+        content: schema.policyChunks.content,
+        similarity, // 1 - (policy_chunks.embedding <=> queryEmbedding)
+      })
+      .from(schema.policyChunks)
+      .orderBy(desc(similarity))
+      .limit(3);
+  }
+
+  private chunkText(text: string, chunkSize = 500): string[] {
+    const chunks: string[] = [];
+
+    for (let i = 0; i < text.length; i += chunkSize) {
+      chunks.push(text.slice(i, i + chunkSize));
+    }
+
+    return chunks;
   }
 }

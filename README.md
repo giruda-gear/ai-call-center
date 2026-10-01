@@ -1,5 +1,5 @@
 # AI Call Center
-An AI-powered call center platform built with NestJS, React, PostgreSQL, and local LLMs.
+An AI-powered call center platform built with NestJS, React, PostgreSQL(+pgvector), and local LLMs.
 
 ## AI Workflow
 ```text
