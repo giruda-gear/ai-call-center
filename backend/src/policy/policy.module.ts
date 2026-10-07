@@ -8,5 +8,6 @@ import { PolicyService } from './policy.service.js';
   imports: [AiModule],
   controllers: [PolicyController],
   providers: [PolicyService],
+  exports: [PolicyService],
 })
 export class PolicyModule {}

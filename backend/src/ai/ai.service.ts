@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { z } from 'zod';
 
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
 import {
@@ -6,7 +7,6 @@ import {
   OllamaChatResponseSchema,
   OllamaEmbedResponseSchema,
 } from './schemas/ai.schema.js';
-import { z } from 'zod';
 
 @Injectable()
 export class AiService {
@@ -110,5 +110,48 @@ Set needsPolicySearch to true when answering the question requires information f
     const data = OllamaEmbedResponseSchema.parse(json);
 
     return data.embeddings[0];
+  }
+
+  async generateAnswer(message: string, context: string) {
+    const response = await fetch('http://localhost:11434/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'qwen3:8b',
+        messages: [
+          {
+            role: 'system',
+            content: `
+You are an assistant for an insurance call center.
+
+Answer the customer's question using only the provided policy context.
+
+If the context does not contain enough information to answer the question,
+say that the available policy information is insufficient.
+
+Policy context:
+${context}
+          `.trim(),
+          },
+          {
+            role: 'user',
+            content: message,
+          },
+        ],
+        stream: false,
+        think: false,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to communicate with Ollama');
+    }
+
+    const json: unknown = await response.json();
+    const data = OllamaChatResponseSchema.parse(json);
+
+    return data.message.content;
   }
 }

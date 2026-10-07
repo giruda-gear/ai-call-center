@@ -10,6 +10,7 @@ import { ContractModule } from './contracts/contract.module.js';
 import { CustomerModule } from './customer/customer.module.js';
 import { DrizzleModule } from './db/drizzle.module.js';
 import { PolicyModule } from './policy/policy.module.js';
+import { AssistantModule } from './assistant/assistant.module.js';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { PolicyModule } from './policy/policy.module.js';
     CallHistoryModule,
     AiModule,
     PolicyModule,
+    AssistantModule,
   ],
   controllers: [AppController],
   providers: [AppService],
