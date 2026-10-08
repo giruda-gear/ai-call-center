@@ -45,6 +45,7 @@ export class CustomerService {
       .where(eq(schema.customers.id, id));
 
     if (!customer) throw new NotFoundException('Customer not found');
+
     return customer;
   }
 
@@ -55,6 +56,7 @@ export class CustomerService {
       .where(eq(schema.customers.customerNumber, customerNumber));
 
     if (!customer) throw new NotFoundException('Customer not found');
+    
     return customer;
   }
 

@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { cosineDistance, desc, eq, sql } from 'drizzle-orm';
+import { and, cosineDistance, desc, eq, gt, sql } from 'drizzle-orm';
 
 import { AiService } from '../ai/ai.service.js';
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
@@ -45,7 +45,7 @@ export class PolicyService {
     };
   }
 
-  async searchPolicyChunks(query: string) {
+  async searchPolicyChunks(query: string, policyType?: string) {
     const queryEmbedding = await this.aiService.embed(query);
 
     const similarity = sql<number>`
@@ -55,10 +55,22 @@ export class PolicyService {
       .select({
         id: schema.policyChunks.id,
         policyId: schema.policyChunks.policyId,
+        policyTitle: schema.policies.title,
+        policyType: schema.policies.type,
         content: schema.policyChunks.content,
         similarity, // 1 - (policy_chunks.embedding <=> queryEmbedding)
       })
       .from(schema.policyChunks)
+      .innerJoin(
+        schema.policies,
+        eq(schema.policies.id, schema.policyChunks.policyId),
+      )
+      .where(
+        and(
+          gt(similarity, 0.7),
+          policyType ? eq(schema.policies.type, policyType) : undefined,
+        ),
+      )
       .orderBy(desc(similarity))
       .limit(3);
   }

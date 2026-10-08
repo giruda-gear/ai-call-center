@@ -6,5 +6,6 @@ import { ContractService } from './contract.service.js';
 @Module({
   controllers: [ContractController],
   providers: [ContractService],
+  exports: [ContractService]
 })
 export class ContractModule {}

@@ -5,12 +5,12 @@ import { LoggerModule } from 'nestjs-pino';
 import { AiModule } from './ai/ai.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { AssistantModule } from './assistant/assistant.module.js';
 import { CallHistoryModule } from './call-history/call-history.module.js';
 import { ContractModule } from './contracts/contract.module.js';
 import { CustomerModule } from './customer/customer.module.js';
 import { DrizzleModule } from './db/drizzle.module.js';
 import { PolicyModule } from './policy/policy.module.js';
-import { AssistantModule } from './assistant/assistant.module.js';
 
 @Module({
   imports: [

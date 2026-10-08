@@ -1,10 +1,11 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
 import * as schema from '../db/schema.js';
 import { CreateContractDto } from './dto/create_contract.dto.js';
 import { UpdateContractDto } from './dto/update_contract.dto.js';
+import { ContractStatus } from './types/contract.types.js';
 import { generateContractNumber } from './util/contract-number.util.js';
 
 @Injectable()
@@ -21,6 +22,15 @@ export class ContractService {
     return contract;
   }
 
+  async findByContractNumber(contractNumber: string) {
+    const [contract] = await this.db
+      .select()
+      .from(schema.contracts)
+      .where(eq(schema.contracts.contractNumber, contractNumber));
+
+    return contract;
+  }
+
   async findByCustomerNumber(customerNumber: string) {
     const [customer] = await this.db
       .select({ id: schema.customers.id })
@@ -32,7 +42,12 @@ export class ContractService {
     return this.db
       .select()
       .from(schema.contracts)
-      .where(eq(schema.contracts.customerId, customer.id));
+      .where(
+        and(
+          eq(schema.contracts.customerId, customer.id),
+          eq(schema.contracts.status, ContractStatus.ACTIVE),
+        ),
+      );
   }
 
   async update(contractNumber: string, dto: UpdateContractDto) {
