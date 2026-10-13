@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { AiService } from '../ai/ai.service.js';
 import { ContractService } from '../contracts/contract.service.js';
@@ -13,39 +13,57 @@ export class AssistantService {
   ) {}
 
   async processMessage(message: string, contractNumber: string) {
-    const analysis = await this.aiService.analyze(message);
-
-    if (!analysis.needsPolicySearch) {
-      return this.aiService.chat(message);
-    }
-
     const contract =
       await this.contractService.findByContractNumber(contractNumber);
-
-    if (!contract) {
-      return 'I could not find the contract. Please verify the contract number.';
+    
+      if (!contract) {
+      throw new NotFoundException('Contract not found');
     }
 
-    const chunks = await this.policyService.searchPolicyChunks(
-      message,
-      contract.type,
-    );
+    const analysis = await this.aiService.analyze(message);
 
-    if (chunks.length === 0) {
-      return 'The available policy information is insufficient to answer this question.';
-    }
+    if (analysis.needsPolicySearch) {
+      const chunks = await this.policyService.searchPolicyChunks(
+        message,
+        contract.type,
+      );
 
-    const context = chunks
-      .map((chunk) =>
-        `
+      if (chunks.length === 0) {
+        return {
+          answer:
+            'The available policy information is insufficient to answer this question.',
+          sources: [],
+        };
+      }
+
+      const context = chunks
+        .map((chunk) =>
+          `
       Policy: ${chunk.policyTitle}
       Type: ${chunk.policyType}
 
-      ${chunk.content}x
+      ${chunk.content}
       `.trim(),
-      )
-      .join('\n\n');
+        )
+        .join('\n\n');
 
-    return this.aiService.generateAnswer(message, context);
+      const answer = await this.aiService.generateAnswer(message, context);
+
+      return {
+        answer,
+        sources: chunks.map((chunk) => ({
+          policyId: chunk.policyId,
+          title: chunk.policyTitle,
+          type: chunk.policyType,
+        })),
+      };
+    }
+
+    const answer = await this.aiService.chat(message);
+
+    return {
+      answer,
+      sources: [],
+    };
   }
 }

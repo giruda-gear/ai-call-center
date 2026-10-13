@@ -154,4 +154,44 @@ ${context}
 
     return data.message.content;
   }
+
+  async chatWithTools(message: string) {
+    const tools = [
+      {
+        type: 'function',
+        function: {
+          name: 'getContract',
+          description: 'Get contract information by contract number',
+          parameters: {
+            type: 'object',
+            properties: {},
+          },
+        },
+      },
+    ];
+
+    const response = await fetch('http://localhost:11434/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'qwen3:8b',
+        messages: [
+          {
+            role: 'user',
+            content: message,
+          },
+        ],
+        tools,
+        stream: false,
+        think: false,
+      }),
+    });
+
+    const json: unknown = await response.json();
+    const data = OllamaChatResponseSchema.parse(json);
+
+    return data;
+  }
 }

@@ -1,3 +1,5 @@
+import { API_URL } from './config'
+
 export type ContractType = 'HEALTH' | 'LIFE' | 'AUTO'
 
 export type ContractStatus = 'ACTIVE' | 'EXPIRED'
@@ -14,12 +16,8 @@ export type Contract = {
   updatedAt: string
 }
 
-export async function getContracts(
-  customerNumber: string,
-): Promise<Contract[]> {
-  const response = await fetch(
-    `http://localhost:3000/contracts/${encodeURIComponent(customerNumber)}`,
-  )
+export async function getContracts(customerNumber: string): Promise<Contract[]> {
+  const response = await fetch(`${API_URL}/contracts/${encodeURIComponent(customerNumber)}`)
 
   if (!response.ok) {
     throw new Error('Failed to fetch contracts')

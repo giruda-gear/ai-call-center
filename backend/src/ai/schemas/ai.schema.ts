@@ -1,9 +1,19 @@
 import { z } from 'zod';
 
+export const OllamaTollCallSchema = z.object({
+  id: z.string(),
+  function: z.object({
+    index: z.number(),
+    name: z.string(),
+    arguments: z.record(z.string(), z.unknown()),
+  }),
+});
+
 export const OllamaChatResponseSchema = z.object({
   message: z.object({
     role: z.string(),
     content: z.string(),
+    tool_calls: z.array(OllamaTollCallSchema).optional(),
   }),
 });
 

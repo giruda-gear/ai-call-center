@@ -26,6 +26,7 @@
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
     "babel-plugin-react-compiler": "^1.0.0",
+    "oxfmt": "^0.72.0",
     "oxlint": "^1.79.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "~6.0.2",

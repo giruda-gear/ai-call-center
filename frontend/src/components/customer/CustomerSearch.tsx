@@ -12,9 +12,9 @@ export default function CustomerSearch({ onSearch }: CustomerSearchProps) {
 
     onSearch(value)
   }
-  
+
   return (
-    <div className="mx-auto flex max-w-2xl items-center rounded-2xl border bg-white px-4 py-2 shadow-sm">
+    <div className="mx-auto flex max-w-2xl items-center rounded-2xl border border-blue-300 bg-white px-4 py-2 shadow-sm">
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}

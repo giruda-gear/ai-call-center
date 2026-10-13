@@ -1,3 +1,5 @@
+import { API_URL } from './config'
+
 export type CallDirection = 'INBOUND' | 'OUTBOUND'
 
 export type CallHistory = {
@@ -12,11 +14,9 @@ export type CallHistory = {
   duration: number | null
 }
 
-export async function getCallHistories(
-  customerNumber: string,
-): Promise<CallHistory[]> {
+export async function getCallHistories(customerNumber: string): Promise<CallHistory[]> {
   const response = await fetch(
-    `http://localhost:3000/call-histories?customerNumber=${encodeURIComponent(customerNumber)}`,
+    `${API_URL}}/call-histories?customerNumber=${encodeURIComponent(customerNumber)}`,
   )
 
   if (!response.ok) {

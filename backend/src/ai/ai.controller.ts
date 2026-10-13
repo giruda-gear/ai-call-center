@@ -23,4 +23,9 @@ export class AiController {
 
     return { dimensions: embedding.length, embedding };
   }
+
+  @Post('tools')
+  async chatWithTools(@Body() dto: ChatDto) {
+    return await this.aiService.chatWithTools(dto.message);
+  }
 }

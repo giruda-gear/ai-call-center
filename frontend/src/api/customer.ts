@@ -1,3 +1,5 @@
+import { API_URL } from './config'
+
 export type Customer = {
   id: number
   customerNumber: string
@@ -7,7 +9,7 @@ export type Customer = {
 }
 
 export async function getCustomers(): Promise<Customer[]> {
-  const response = await fetch('http://localhost:3000/customers')
+  const response = await fetch(`${API_URL}/customers`)
 
   if (!response.ok) throw Error('Failed to fetch customers')
 
@@ -15,9 +17,7 @@ export async function getCustomers(): Promise<Customer[]> {
 }
 
 export async function searchCustomers(query: string): Promise<Customer[]> {
-  const response = await fetch(
-    `http://localhost:3000/customers?q=${encodeURIComponent(query)}`,
-  )
+  const response = await fetch(`http://localhost:3000/customers?q=${encodeURIComponent(query)}`)
 
   if (!response.ok) throw Error('Failed to fetch customers')
 
