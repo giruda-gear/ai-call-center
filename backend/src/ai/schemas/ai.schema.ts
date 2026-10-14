@@ -32,3 +32,11 @@ export const AnalyzeResultSchema = z.object({
   intent: CustomerIntentSchema,
   needsPolicySearch: z.boolean(),
 });
+
+export const CustomerRequestSummarySchema = z.object({
+  summary: z.string(),
+});
+
+export type CustomerRequestSummary = z.infer<
+  typeof CustomerRequestSummarySchema
+>;

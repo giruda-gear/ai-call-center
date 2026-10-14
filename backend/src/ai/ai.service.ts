@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { DRIZZLE, type DrizzleDB } from '../db/drizzle.module.js';
 import {
   AnalyzeResultSchema,
+  CustomerRequestSummary,
+  CustomerRequestSummarySchema,
   OllamaChatResponseSchema,
   OllamaEmbedResponseSchema,
 } from './schemas/ai.schema.js';
@@ -193,5 +195,48 @@ ${context}
     const data = OllamaChatResponseSchema.parse(json);
 
     return data;
+  }
+
+  async summarizeCustomerRequest(
+    transcript: string,
+  ): Promise<CustomerRequestSummary> {
+    const response = await fetch('http://localhost:11434/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'qwen3:8b',
+        messages: [
+          {
+            role: 'system',
+            content: `
+Summarize only the customer's request or issue from this call.
+
+Do not invent actions taken by the agent.
+Do not include greetings or unnecessary conversation.
+Keep the summary concise.
+          `.trim(),
+          },
+          {
+            role: 'user',
+            content: transcript,
+          },
+        ],
+        format: z.toJSONSchema(CustomerRequestSummarySchema),
+        stream: false,
+        think: false,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to summarize customer request');
+    }
+
+    const json: unknown = await response.json();
+    const data = OllamaChatResponseSchema.parse(json);
+    const parsed: unknown = JSON.parse(data.message.content);
+
+    return CustomerRequestSummarySchema.parse(parsed);
   }
 }

@@ -6,7 +6,6 @@ export default function Sidebar() {
       <h1 className="mb-8 text-xl font-semibold">AI Customer Service</h1>
       <nav className="flex flex-col gap-2">
         <NavLink to="/">Dashboard</NavLink>
-        <NavLink to="/customers">Customers</NavLink>
       </nav>
     </aside>
   )

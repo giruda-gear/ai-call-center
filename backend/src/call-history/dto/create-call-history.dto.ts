@@ -29,8 +29,9 @@ export class CreateCallHistoryDto {
   @IsDateString()
   startedAt!: string;
 
+  @IsOptional()
   @IsDateString()
-  endedAt!: string;
+  endedAt?: string;
 
   @IsOptional()
   @IsInt()

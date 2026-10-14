@@ -17,7 +17,7 @@ export class CallHistoryService {
       .values({
         ...dto,
         startedAt: new Date(dto.startedAt),
-        endedAt: new Date(dto.endedAt),
+        endedAt: dto.endedAt ? new Date(dto.endedAt) : undefined,
       })
       .returning();
 
@@ -82,7 +82,7 @@ export class CallHistoryService {
   async update(id: number, dto: UpdateCallHistoryDto) {
     return this.db
       .update(schema.callHistories)
-      .set({ ...dto })
+      .set({ ...dto, endedAt: dto.endedAt ? new Date(dto.endedAt) : undefined })
       .where(eq(schema.callHistories.id, id))
       .returning();
   }

@@ -15,15 +15,26 @@ export const callHistories = pgTable(
   {
     id: serial('id').primaryKey(),
     customerId: integer('customer_id').references(() => customers.id),
+
     direction: varchar('direction', { length: 20 }).notNull(),
     fromNumber: varchar('from_number', { length: 30 }).notNull(),
     toNumber: varchar('to_number', { length: 30 }).notNull(),
+
+    customerRequestSummary: text('customer_request_summary'),
+    actionTaken: text('action_taken'),
+    disposition: varchar('disposition', { length: 20 }),
+    nextStep: text('next_step'),
+
     callNotes: text('call_notes'),
+
     startedAt: timestamp('started_at', { withTimezone: true }).notNull(),
-    endedAt: timestamp('ended_at', { withTimezone: true }).notNull(),
+    endedAt: timestamp('ended_at', { withTimezone: true }),
     duration: integer('duration'),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at')
+
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
       .notNull()
       .defaultNow()
       .$onUpdate(() => new Date()),

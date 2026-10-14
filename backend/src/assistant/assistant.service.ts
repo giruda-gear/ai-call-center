@@ -15,8 +15,8 @@ export class AssistantService {
   async processMessage(message: string, contractNumber: string) {
     const contract =
       await this.contractService.findByContractNumber(contractNumber);
-    
-      if (!contract) {
+
+    if (!contract) {
       throw new NotFoundException('Contract not found');
     }
 
@@ -65,5 +65,9 @@ export class AssistantService {
       answer,
       sources: [],
     };
+  }
+
+  async summarizeCall(transcript: string) {
+    return this.aiService.summarizeCustomerRequest(transcript);
   }
 }
