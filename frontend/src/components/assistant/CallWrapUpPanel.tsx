@@ -32,8 +32,7 @@ export default function CallWrapUpPanel({
 }: CallWrapUpPanelProps) {
   const [summary, setSummary] = useState('')
   const [actionTaken, setActionTaken] = useState('')
-  const [disposition, setDisposition] =
-    useState<Disposition>('RESOLVED')
+  const [disposition, setDisposition] = useState<Disposition>('RESOLVED')
   const [nextStep, setNextStep] = useState('')
 
   async function handleGenerateSummary() {
@@ -96,9 +95,7 @@ export default function CallWrapUpPanel({
 
         <select
           value={disposition}
-          onChange={(e) =>
-            setDisposition(e.target.value as Disposition)
-          }
+          onChange={(e) => setDisposition(e.target.value as Disposition)}
           className="rounded-lg border border-gray-200 p-2"
         >
           <option value="RESOLVED">Resolved</option>
@@ -115,22 +112,13 @@ export default function CallWrapUpPanel({
 
         <button
           type="submit"
-          disabled={
-            !selectedCallHistoryId ||
-            !summary.trim() ||
-            !actionTaken.trim() ||
-            isSaving
-          }
+          disabled={!selectedCallHistoryId || !summary.trim() || !actionTaken.trim() || isSaving}
           className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:bg-blue-300"
         >
           {isSaving ? 'Saving...' : 'Save wrap-up'}
         </button>
 
-        {isSaved && (
-          <p className="text-sm text-green-600">
-            Call wrap-up saved.
-          </p>
-        )}
+        {isSaved && <p className="text-sm text-green-600">Call wrap-up saved.</p>}
       </form>
     </section>
   )
