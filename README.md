@@ -2,7 +2,7 @@
 An AI assistant platform designed to reduce the time agents spend searching for information and help them provide fast, accurate, policy-based answers using local LLMs and RAG.
 
 ## Demo
-![AI Call Center Demo](./demo.gif)
+<img src="./demo.gif" width="400" />
 
 
 ## AI Workflow
